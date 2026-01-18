@@ -13,7 +13,7 @@ class Die:
             raise ValueError("A die must have at least two sides.")
         if len(sides) > 3:
             raise ValueError("This implementation only supports up to 3-sided dice.")
-        self.sides = sorted(sides, reverse=True)
+        self.sides = sorted(sides)
 
     def roll(self) -> float:
         return random.choice(self.sides)
@@ -70,7 +70,7 @@ class Die:
 
     def __repr__(self) -> str:
         return f"Die({self.sides})"
-    
+
     def __str__(self) -> str:
         return f"Die with sides: {self.sides}"
 
@@ -110,17 +110,32 @@ class Die:
         comparision = self.compare_dice(value)
         return comparision["total"] != 0
 
-class DiceSet():
+
+class DiceSet:
     """A set of three dice to check for intransitivity."""
+
     def __init__(self, die_a: Die, die_b: Die, die_c: Die) -> None:
         self.die_a = die_a
         self.die_b = die_b
         self.die_c = die_c
 
     def is_intransitive(self) -> bool:
-        if self.die_a > self.die_b and self.die_b > self.die_c and self.die_c > self.die_a:
+        if (
+            self.die_a > self.die_b
+            and self.die_b > self.die_c
+            and self.die_c > self.die_a
+        ):
             return True
-        if self.die_a < self.die_b and self.die_b < self.die_c and self.die_c < self.die_a:
+        if (
+            self.die_a < self.die_b
+            and self.die_b < self.die_c
+            and self.die_c < self.die_a
+        ):
             return True
         return False
 
+    def __repr__(self) -> str:
+        return f"DiceSet({self.die_a}, {self.die_b}, {self.die_c})"
+
+    def __str__(self) -> str:
+        return f"DiceSet with dice:\n\n\t{self.die_a},\n\n\t{self.die_b},\n\n\t{self.die_c}\n"
