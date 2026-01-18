@@ -13,7 +13,7 @@ class Die:
             raise ValueError("A die must have at least two sides.")
         if len(sides) > 3:
             raise ValueError("This implementation only supports up to 3-sided dice.")
-        self.sides = sorted(sides)
+        self.sides = tuple(sorted(sides))
 
     def roll(self) -> float:
         return random.choice(self.sides)
