@@ -30,7 +30,6 @@ def add_coordinates(dice_set: DiceSet) -> None:
         c="red",
         marker="o",
         s=100,
-        label="Die A",
     )
     ax.scatter(
         dice_set.die_b.sides[0],
@@ -39,7 +38,6 @@ def add_coordinates(dice_set: DiceSet) -> None:
         c="orange",
         marker="o",
         s=100,
-        label="Die B",
     )
     ax.scatter(
         dice_set.die_c.sides[0],
@@ -48,7 +46,6 @@ def add_coordinates(dice_set: DiceSet) -> None:
         c="green",
         marker="o",
         s=100,
-        label="Die C",
     )
 
 
