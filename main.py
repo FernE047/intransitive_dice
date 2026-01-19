@@ -12,9 +12,14 @@ points: list[dice_view.CoordinatesData] = []
 def main() -> None:
     not_intransitive_count = 0
     intransitive_count = 0
-    #die_a = Die((2, 4, 9))
-    die_a = Die((0, 4, 9))
-    die_b = Die((1, 6, 8))
+    #dices: tuple[dice_view.CoordinatesData,dice_view.CoordinatesData] = ((1, 6, 8), (2, 4, 9)) #infinite cuboid and tetrahedron Y
+    #dices: tuple[dice_view.CoordinatesData,dice_view.CoordinatesData] = ((1, 6, 8), (0, 4, 9)) #house and tetrahedron Z
+    #dices: tuple[dice_view.CoordinatesData,dice_view.CoordinatesData] = ((1, 5, 9), (2, 6, 7)) #same as above Z
+    #dices: tuple[dice_view.CoordinatesData,dice_view.CoordinatesData] = ((1, 7, 8), (3, 5, 6)) #house case, only the house X
+    #dices: tuple[dice_view.CoordinatesData,dice_view.CoordinatesData] = ((1, 6, 8), (4, 5, 7)) #house case X
+    #dices: tuple[dice_view.CoordinatesData,dice_view.CoordinatesData] = ((1, 7, 8), (2, 3, 9)) #cuboid case Y
+    die_a = Die(dices[0])
+    die_b = Die(dices[1])
     dice_view.add_die(die_a, "red")
     dice_view.add_die(die_b, "orange")
     for x in range(-PLOT_SIZE, PLOT_SIZE + 1):
@@ -32,7 +37,6 @@ def main() -> None:
     print(f"Intransitive: {intransitive_count}")
     dice_view.add_coordinates(points)
     dice_view.show_plot()
-
 
 if __name__ == "__main__":
     main()
