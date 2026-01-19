@@ -1,3 +1,3 @@
 # TODO
 
-1. turn the lines into suqaers
+1. turn the lines into squares
