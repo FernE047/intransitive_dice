@@ -131,5 +131,8 @@ def show_plot() -> None:
     ax.set_zlabel("Z")
     ax.set_title("3D Points from -10 to 10")
 
+    ax.set_aspect("equal", adjustable="box")
+    ax.autoscale()
+
     plt.legend()
     plt.show()
