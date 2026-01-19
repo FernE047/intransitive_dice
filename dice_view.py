@@ -1,12 +1,13 @@
 # type: ignore
 
 import matplotlib.pyplot as plt
-
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from dice import DiceSet, Die
 
-PLOT_SIZE = 10
+PLOT_SIZE = 20
 CoordinatesData = tuple[float, float, float]
 LineData = tuple[CoordinatesData, CoordinatesData]
+SquaresData = tuple[CoordinatesData, CoordinatesData, CoordinatesData, CoordinatesData]
 
 fig = plt.figure(figsize=(10, 8))
 ax = fig.add_subplot(111, projection="3d")
@@ -61,7 +62,7 @@ def find_lines(coordinates: list[CoordinatesData]) -> list[LineData]:
     # find coordinates that share the same Y and Z. X varies.
     x_lines: dict[tuple[float, float], list[CoordinatesData]] = {}
     for coord in coordinates:
-        x, y, z = coord
+        _, y, z = coord
         key = (y, z)
         if key not in x_lines:
             x_lines[key] = []
@@ -74,15 +75,43 @@ def find_lines(coordinates: list[CoordinatesData]) -> list[LineData]:
     return lines
 
 
+def add_squares(squares: list[SquaresData]) -> None:
+    print(f"Adding {len(squares)} squares")
+    for square in squares:
+        face = Poly3DCollection([square], alpha=0.5, edgecolor="green", facecolor = "green", linewidth=1)
+        ax.add_collection3d(face)
+        # x, y, z = zip(*(square + [square[0]]))
+        # ax.plot(x, y, z, linewidth=2, color="blue")
+
+
+def find_squares(lines: list[LineData]) -> list[SquaresData]:
+    # Group lines by their Y coordinates
+    y_groups: dict[tuple[float, float], list[LineData]] = {}
+    for lines in lines:
+        (x1, y1, z1), (x2, y2, z2) = lines
+        y_key = (x1, y1, y2)
+        if y_key not in y_groups:
+            y_groups[y_key] = []
+        y_groups[y_key].append(lines)
+    squares: list[SquaresData] = []
+    for lines in y_groups.values():
+        lowest_z = min(lines, key=lambda line: line[0][2])
+        highest_z = max(lines, key=lambda line: line[0][2])
+        square = [
+            lowest_z[0],
+            highest_z[0],
+            highest_z[1],
+            lowest_z[1],
+        ]
+        squares.append(square)
+    return squares
+
+
 def add_coordinates(coordinates: list[CoordinatesData]) -> None:
     lines = find_lines(coordinates)
-    add_lines(lines)
-
-
-"""
-    FUTURE IMPLEMENTATION
-    squares = find_squares(coordinates)
-    add_squares(squares)"""
+    # add_lines(lines)
+    squares = find_squares(lines)
+    add_squares(squares)
 
 
 def add_die(die: Die, color: str) -> None:
