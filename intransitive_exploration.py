@@ -5,7 +5,7 @@
 # 9!
 
 # %%
-#9 * 8 * 7 * 6 * 5 * 4 * 3 * 2 * 1
+# 9 * 8 * 7 * 6 * 5 * 4 * 3 * 2 * 1
 
 # %% [markdown]
 # however, a few rules are always true:
@@ -732,3 +732,63 @@ for dice_set in intransitive_dices:
 # case 5: (1, 7, 8), (2, 3, 9), (4, 5, 6)
 #
 #
+# %% markdown
+# studying case one when there's only two dice
+# case 1 A: (1, 6, 8), (2, 4, 9)
+#   2 4 9     A B C     1 6 8
+# 1 o o o   2   o o   A   o o
+# 6 x x o   4     o   B x   o
+# 8 x x o   9 x x     C x
+#
+# important: A < B < C
+#
+# we are trying to make so (A,B,C) > (2,4,9) and (1,6,8) > (A,B,C)
+# first thing to notice is: 1 < 2 < 4 < 6 < 8 < 9
+# I. let's suppose A > 8 -> this makes so 9 < A < B < C. -> they are all bigger than 8, then (1,6,8) < (A,B,C) and that is a contradiction
+# I. A < 8
+# II. suppose B > 8 -> this makes so A < 8 < B < C -> two variables are bigger than 8, then (1,6,8) < (A,B,C) contradiction.
+# II. B < 8
+# III. suppose C < 2 -> this makes so A < B < C < 2 -> all three variables are less than 2, then (A,B,C) < (2,4,9) contradiction
+# III. C > 2
+# IV. suppose B < 2 -> this makes so A < B < 2 < C -> two variables are less than 2, then (A,B,C) < (2,4,9) contradiction
+# IV. B > 2
+# V. based on I and II we have A < B < 8 and based on III and IV we have 2 < B < C, so we have 2 < B < 8
+# V. 2 < B < 8
+# VI. suppose C < 4 -> this makes so A < B < C < 4 -> two variables are less than 4, then (A,B,C) < (2,4,9) contradiction
+# VI. C > 4
+# VII. suppose A > 6 -> this makes so 6 < A < B < C -> two variables are bigger than 6, then (1,6,8) < (A,B,C) contradiction
+# VII. A < 6
+# VIII. if A > 4 -> C < 8 and B < 6
+# VIII. when 4 < A < 6, 4 < B < 6, 4 < C < 8. would A = 5, B = 5, C = 5 work? yes, it does, so actually A<=B<=C.
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+# %%
+# case 1 B: (1, 6, 8), (3, 5, 7)
+#   2 4 9     3 5 7     1 6 8
+# 1 o o o   2 o o o   3 x o o
+# 6 x x o   4 x o o   5 x o o
+# 8 x x o   9 x x x   7 x x o
+#
+# case 1 C: (2, 4, 9), (3, 5, 7)
+#   2 4 9     3 5 7     1 6 8
+# 1 o o o   2 o o o   3 x o o
+# 6 x x o   4 x o o   5 x o o
+# 8 x x o   9 x x x   7 x x o
